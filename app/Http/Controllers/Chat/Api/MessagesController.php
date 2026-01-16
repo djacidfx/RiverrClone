@@ -43,7 +43,6 @@ class MessagesController extends Controller
      */
     public function idFetchData(Request $request)
     {
-        return auth()->user();
         // Favorite
         $favorite = Chatify::inFavorite($request['id']);
 
@@ -300,8 +299,8 @@ class MessagesController extends Controller
     {
         $images = Chatify::getSharedPhotos($request['user_id']);
 
-        foreach ($images as $image) {
-            $image = asset(config('chatify.attachments.folder') . $image);
+        foreach ($images as $index => $image) {
+            $images[$index] = asset(config('chatify.attachments.folder') . '/' . $image);
         }
         // send the response
         return Response::json([
