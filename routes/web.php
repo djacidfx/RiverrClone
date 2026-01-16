@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Main as MainLivewire;
 
 // Tasks
 Route::prefix('tasks')->group(function() {
@@ -28,7 +30,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Home')->group(function() {
     
         // Home
-        Route::get('/', HomeComponent::class);
+        Route::get('/', MainLivewire\Home\HomeComponent::class);
     
     });
 
@@ -39,13 +41,13 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Projects')->prefix('projects')->group(function() {
 
             // Browse projects
-            Route::get('/', ProjectsComponent::class);
+            Route::get('/', MainLivewire\Explore\Projects\ProjectsComponent::class);
 
             // Category
-            Route::get('{category_slug}', CategoryComponent::class);
+            Route::get('{category_slug}', MainLivewire\Explore\Projects\CategoryComponent::class);
 
             // Skill
-            Route::get('{category_slug}/{skill_slug}', SkillComponent::class);
+            Route::get('{category_slug}/{skill_slug}', MainLivewire\Explore\Projects\SkillComponent::class);
 
         });
 
@@ -55,7 +57,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Project')->prefix('project')->group(function() {
 
         // Project
-        Route::get('{pid}/{slug}', ProjectComponent::class);
+        Route::get('{pid}/{slug}', MainLivewire\Project\ProjectComponent::class);
 
     });
 
@@ -63,10 +65,10 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Blog')->prefix('blog')->group(function() {
 
         // Index
-        Route::get('/', BlogComponent::class);
+        Route::get('/', MainLivewire\Blog\BlogComponent::class);
 
         // Article
-        Route::get('{slug}', ArticleComponent::class);
+        Route::get('{slug}', MainLivewire\Blog\ArticleComponent::class);
 
     });
 
@@ -74,7 +76,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Sellers')->prefix('sellers')->group(function() {
 
         // Index
-        Route::get('/', SellersComponent::class);
+        Route::get('/', MainLivewire\Sellers\SellersComponent::class);
 
     });
 
@@ -82,7 +84,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Redirect')->prefix('redirect')->group(function() {
 
         // To
-        Route::get('/', RedirectComponent::class);
+        Route::get('/', MainLivewire\Redirect\RedirectComponent::class);
 
     });
 
@@ -90,7 +92,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Newsletter')->prefix('newsletter')->group(function() {
 
         // Verify
-        Route::get('verify', VerifyComponent::class);
+        Route::get('verify', MainLivewire\Newsletter\VerifyComponent::class);
 
     });
     
@@ -98,25 +100,25 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Auth')->middleware('guest')->prefix('auth')->group(function() {
 
         // Register
-        Route::get('register', RegisterComponent::class);
+        Route::get('register', MainLivewire\Auth\RegisterComponent::class);
 
         // Login
-        Route::get('login', LoginComponent::class)->name('login');
+        Route::get('login', MainLivewire\Auth\LoginComponent::class)->name('login');
 
         // Verify
-        Route::get('verify', VerifyComponent::class);
+        Route::get('verify', MainLivewire\Auth\VerifyComponent::class);
 
         // Request verification
-        Route::get('request', RequestComponent::class);
+        Route::get('request', MainLivewire\Auth\RequestComponent::class);
 
         // Password
         Route::namespace('Password')->prefix('password')->group(function() {
 
             // Reset
-            Route::get('reset', ResetComponent::class);
+            Route::get('reset', MainLivewire\Auth\Password\ResetComponent::class);
 
             // Update
-            Route::get('update', UpdateComponent::class);
+            Route::get('update', MainLivewire\Auth\Password\UpdateComponent::class);
 
         });
 
@@ -127,10 +129,10 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
             Route::namespace('Github')->prefix('github')->group(function() {
 
                 // Redirect
-                Route::get('/', RedirectComponent::class);
+                Route::get('/', MainLivewire\Auth\Social\Github\RedirectComponent::class);
 
                 // Callback
-                Route::get('callback', CallbackComponent::class);
+                Route::get('callback', MainLivewire\Auth\Social\Github\CallbackComponent::class);
 
             });
 
@@ -138,10 +140,10 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
             Route::namespace('Linkedin')->prefix('linkedin')->group(function() {
 
                 // Redirect
-                Route::get('/', RedirectComponent::class);
+                Route::get('/', MainLivewire\Auth\Social\Linkedin\RedirectComponent::class);
 
                 // Callback
-                Route::get('callback', CallbackComponent::class);
+                Route::get('callback', MainLivewire\Auth\Social\Linkedin\CallbackComponent::class);
 
             });
 
@@ -149,10 +151,10 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
             Route::namespace('Google')->prefix('google')->group(function() {
 
                 // Redirect
-                Route::get('/', RedirectComponent::class);
+                Route::get('/', MainLivewire\Auth\Social\Google\RedirectComponent::class);
 
                 // Callback
-                Route::get('callback', CallbackComponent::class);
+                Route::get('callback', MainLivewire\Auth\Social\Google\CallbackComponent::class);
 
             });
 
@@ -160,10 +162,10 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
             Route::namespace('Facebook')->prefix('facebook')->group(function() {
 
                 // Redirect
-                Route::get('/', RedirectComponent::class);
+                Route::get('/', MainLivewire\Auth\Social\Facebook\RedirectComponent::class);
 
                 // Callback
-                Route::get('callback', CallbackComponent::class);
+                Route::get('callback', MainLivewire\Auth\Social\Facebook\CallbackComponent::class);
 
             });
 
@@ -171,10 +173,10 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
             Route::namespace('Twitter')->prefix('twitter')->group(function() {
 
                 // Redirect
-                Route::get('/', RedirectComponent::class);
+                Route::get('/', MainLivewire\Auth\Social\Twitter\RedirectComponent::class);
 
                 // Callback
-                Route::get('callback', CallbackComponent::class);
+                Route::get('callback', MainLivewire\Auth\Social\Twitter\CallbackComponent::class);
 
             });
 
@@ -186,7 +188,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Auth')->middleware('auth')->prefix('auth')->group(function() {
 
         // Logout
-        Route::get('logout', LogoutComponent::class);
+        Route::get('logout', MainLivewire\Auth\LogoutComponent::class);
 
     });
 
@@ -194,7 +196,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Service')->prefix('service')->group(function() {
 
         // Slug
-        Route::get('{slug}', ServiceComponent::class)->name('service');
+        Route::get('{slug}', MainLivewire\Service\ServiceComponent::class)->name('service');
 
     });
 
@@ -202,7 +204,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Cart')->prefix('cart')->group(function() {
 
         // cart
-        Route::get('/', CartComponent::class);
+        Route::get('/', MainLivewire\Cart\CartComponent::class);
 
     });
 
@@ -210,7 +212,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Checkout')->prefix('checkout')->middleware('auth')->group(function() {
 
         // Checkout
-        Route::get('/', CheckoutComponent::class);
+        Route::get('/', MainLivewire\Checkout\CheckoutComponent::class);
 
     });
 
@@ -221,7 +223,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Settings')->group(function() {
 
             // Index
-            Route::get('settings', SettingsComponent::class);
+            Route::get('settings', MainLivewire\Account\Settings\SettingsComponent::class);
 
         });
 
@@ -229,7 +231,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Password')->group(function() {
 
             // Index
-            Route::get('password', PasswordComponent::class);
+            Route::get('password', MainLivewire\Account\Password\PasswordComponent::class);
 
         });
 
@@ -237,7 +239,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Profile')->group(function() {
 
             // Index
-            Route::get('profile', ProfileComponent::class);
+            Route::get('profile', MainLivewire\Account\Profile\ProfileComponent::class);
 
         });
 
@@ -245,7 +247,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Verification')->group(function() {
 
             // Index
-            Route::get('verification', VerificationComponent::class);
+            Route::get('verification', MainLivewire\Account\Verification\VerificationComponent::class);
 
         });
 
@@ -253,16 +255,16 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Orders')->prefix('orders')->group(function() {
 
             // All
-            Route::get('/', OrdersComponent::class);
+            Route::get('/', MainLivewire\Account\Orders\OrdersComponent::class);
 
             // Options
             Route::namespace('Options')->group(function() {
 
                 // Requirements
-                Route::get('requirements', RequirementsComponent::class);
+                Route::get('requirements', MainLivewire\Account\Orders\Options\RequirementsComponent::class);
 
                 // Delivered work
-                Route::get('files', FilesComponent::class);
+                Route::get('files', MainLivewire\Account\Orders\Options\FilesComponent::class);
 
             });
 
@@ -272,19 +274,19 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Reviews')->prefix('reviews')->group(function() {
 
             // Reviews
-            Route::get('/', ReviewsComponent::class);
+            Route::get('/', MainLivewire\Account\Reviews\ReviewsComponent::class);
 
             // Options
             Route::namespace('Options')->group(function() {
 
                 // Create
-                Route::get('create/{itemId}', CreateComponent::class);
+                Route::get('create/{itemId}', MainLivewire\Account\Reviews\Options\CreateComponent::class);
 
                 // Preview
-                Route::get('preview/{id}', PreviewComponent::class);
+                Route::get('preview/{id}', MainLivewire\Account\Reviews\Options\PreviewComponent::class);
 
                 // Edit
-                Route::get('edit/{id}', EditComponent::class);
+                Route::get('edit/{id}', MainLivewire\Account\Reviews\Options\EditComponent::class);
 
             });
 
@@ -294,7 +296,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Favorite')->prefix('favorite')->group(function() {
 
             // List
-            Route::get('/', FavoriteComponent::class);
+            Route::get('/', MainLivewire\Account\Favorite\FavoriteComponent::class);
 
         });
 
@@ -302,7 +304,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Billing')->prefix('billing')->group(function() {
 
             // Billing
-            Route::get('/', BillingComponent::class);
+            Route::get('/', MainLivewire\Account\Billing\BillingComponent::class);
 
         });
 
@@ -310,16 +312,16 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Refunds')->prefix('refunds')->group(function() {
 
             // Refund
-            Route::get('/', RefundsComponent::class);
+            Route::get('/', MainLivewire\Account\Refunds\RefundsComponent::class);
 
             // Options
             Route::namespace('Options')->group(function() {
 
                 // Request
-                Route::get('request/{id}', RequestComponent::class);
+                Route::get('request/{id}', MainLivewire\Account\Refunds\Options\RequestComponent::class);
 
                 // Details
-                Route::get('details/{id}', DetailsComponent::class);
+                Route::get('details/{id}', MainLivewire\Account\Refunds\Options\DetailsComponent::class);
 
             });
 
@@ -329,10 +331,10 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Deposit')->prefix('deposit')->group(function() {
 
             // Deposit
-            Route::get('/', DepositComponent::class);
+            Route::get('/', MainLivewire\Account\Deposit\DepositComponent::class);
 
             // History
-            Route::get('history', HistoryComponent::class);
+            Route::get('history', MainLivewire\Account\Deposit\HistoryComponent::class);
 
         });
 
@@ -340,16 +342,16 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Projects')->prefix('projects')->group(function() {
 
             // Projects
-            Route::get('/', ProjectsComponent::class);
+            Route::get('/', MainLivewire\Account\Projects\ProjectsComponent::class);
 
             // Options
             Route::namespace('Options')->group(function() {
 
                 // Checkout
-                Route::get('checkout/{id}', CheckoutComponent::class);
+                Route::get('checkout/{id}', MainLivewire\Account\Projects\Options\CheckoutComponent::class);
 
                 // Milestones
-                Route::get('milestones/{id}', MilestonesComponent::class);
+                Route::get('milestones/{id}', MainLivewire\Account\Projects\Options\MilestonesComponent::class);
                 
             });
 
@@ -359,7 +361,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Sessions')->prefix('sessions')->group(function() {
 
             // All
-            Route::get('/', SessionsComponent::class);
+            Route::get('/', MainLivewire\Account\Sessions\SessionsComponent::class);
 
         });
 
@@ -367,7 +369,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Offers')->prefix('offers')->group(function() {
 
             // All
-            Route::get('/', OffersComponent::class);
+            Route::get('/', MainLivewire\Account\Offers\OffersComponent::class);
 
         });
 
@@ -377,7 +379,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Create')->middleware('auth')->group(function() {
 
         // Service
-        Route::get('create', CreateComponent::class);
+        Route::get('create', MainLivewire\Create\CreateComponent::class);
 
     });
 
@@ -385,7 +387,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Become')->prefix('start_selling')->group(function() {
 
         // Become seller
-        Route::get('/', SellerComponent::class);
+        Route::get('/', MainLivewire\Become\SellerComponent::class);
 
     });
 
@@ -396,7 +398,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Home')->prefix('home')->group(function() {
 
             // Index
-            Route::get('/', HomeComponent::class);
+            Route::get('/', MainLivewire\Seller\Home\HomeComponent::class);
 
         });
 
@@ -404,16 +406,16 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Gigs')->prefix('gigs')->group(function() {
 
             // Index
-            Route::get('/', GigsComponent::class);
+            Route::get('/', MainLivewire\Seller\Gigs\GigsComponent::class);
 
             // Options
             Route::namespace('Options')->group(function() {
 
                 // Analytics
-                Route::get('analytics/{id}', AnalyticsComponent::class);
+                Route::get('analytics/{id}', MainLivewire\Seller\Gigs\Options\AnalyticsComponent::class);
 
                 // Edit
-                Route::get('edit/{id}', EditComponent::class);
+                Route::get('edit/{id}', MainLivewire\Seller\Gigs\Options\EditComponent::class);
 
             });
 
@@ -423,13 +425,13 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Reviews')->prefix('reviews')->group(function() {
 
             // Index
-            Route::get('/', ReviewsComponent::class);
+            Route::get('/', MainLivewire\Seller\Reviews\ReviewsComponent::class);
 
             // Options
             Route::namespace('Options')->group(function() {
 
                 // Details
-                Route::get('details/{id}', DetailsComponent::class);
+                Route::get('details/{id}', MainLivewire\Seller\Reviews\Options\DetailsComponent::class);
 
             });
 
@@ -439,19 +441,19 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Orders')->prefix('orders')->group(function() {
 
             // Index
-            Route::get('/', OrdersComponent::class);
+            Route::get('/', MainLivewire\Seller\Orders\OrdersComponent::class);
 
             // Options
             Route::namespace('Options')->group(function() {
 
                 // Details
-                Route::get('details/{id}', DetailsComponent::class);
+                Route::get('details/{id}', MainLivewire\Seller\Orders\Options\DetailsComponent::class);
 
                 // Deliver
-                Route::get('deliver/{id}', DeliverComponent::class);
+                Route::get('deliver/{id}', MainLivewire\Seller\Orders\Options\DeliverComponent::class);
 
                 // Requirements
-                Route::get('requirements/{id}', RequirementsComponent::class);
+                Route::get('requirements/{id}', MainLivewire\Seller\Orders\Options\RequirementsComponent::class);
 
             });
 
@@ -461,16 +463,16 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Portfolio')->prefix('portfolio')->group(function() {
 
             // Index
-            Route::get('/', PortfolioComponent::class);
+            Route::get('/', MainLivewire\Seller\Portfolio\PortfolioComponent::class);
 
             // Options
             Route::namespace('Options')->group(function() {
 
                 // Create
-                Route::get('create', CreateComponent::class);
+                Route::get('create', MainLivewire\Seller\Portfolio\Options\CreateComponent::class);
 
                 // Edit
-                Route::get('edit/{id}', EditComponent::class);
+                Route::get('edit/{id}', MainLivewire\Seller\Portfolio\Options\EditComponent::class);
 
             });
 
@@ -480,7 +482,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Earnings')->prefix('earnings')->group(function() {
 
             // Index
-            Route::get('/', EarningsComponent::class);
+            Route::get('/', MainLivewire\Seller\Earnings\EarningsComponent::class);
 
         });
 
@@ -488,13 +490,13 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Withdrawals')->prefix('withdrawals')->group(function() {
 
             // Index
-            Route::get('/', WithdrawalsComponent::class);
+            Route::get('/', MainLivewire\Seller\Withdrawals\WithdrawalsComponent::class);
 
             // Settings
-            Route::get('settings', SettingsComponent::class);
+            Route::get('settings', MainLivewire\Seller\Withdrawals\SettingsComponent::class);
 
             // Create
-            Route::get('create', CreateComponent::class);
+            Route::get('create', MainLivewire\Seller\Withdrawals\CreateComponent::class);
 
         });
 
@@ -502,13 +504,13 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Refunds')->prefix('refunds')->group(function() {
 
             // Index
-            Route::get('/', RefundsComponent::class);
+            Route::get('/', MainLivewire\Seller\Refunds\RefundsComponent::class);
 
             // Options
             Route::namespace('Options')->group(function() {
 
                 // Details
-                Route::get('details/{id}', DetailsComponent::class);
+                Route::get('details/{id}', MainLivewire\Seller\Refunds\Options\DetailsComponent::class);
 
             });
 
@@ -518,13 +520,13 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Projects')->prefix('projects')->group(function() {
 
             // Index
-            Route::get('/', ProjectsComponent::class);
+            Route::get('/', MainLivewire\Seller\Projects\ProjectsComponent::class);
 
             // Milestones
             Route::namespace('Milestones')->prefix('milestones')->group(function() {
 
                 // List
-                Route::get('{id}', MilestonesComponent::class);
+                Route::get('{id}', MainLivewire\Seller\Projects\Milestones\MilestonesComponent::class);
 
             });
 
@@ -532,16 +534,16 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
             Route::namespace('Bids')->prefix('bids')->group(function() {
 
                 // List
-                Route::get('/', BidsComponent::class);
+                Route::get('/', MainLivewire\Seller\Projects\Bids\BidsComponent::class);
 
                 // Options
                 Route::namespace('Options')->group(function() {
 
                     // Checkout
-                    Route::get('checkout/{id}', CheckoutComponent::class);
+                    Route::get('checkout/{id}', MainLivewire\Seller\Projects\Bids\Options\CheckoutComponent::class);
 
                     // Edit
-                    Route::get('edit/{id}', EditComponent::class);
+                    Route::get('edit/{id}', MainLivewire\Seller\Projects\Bids\Options\EditComponent::class);
 
                 });
 
@@ -553,7 +555,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Offers')->prefix('offers')->group(function() {
 
             // All
-            Route::get('/', OffersComponent::class);
+            Route::get('/', MainLivewire\Seller\Offers\OffersComponent::class);
 
         });
 
@@ -566,7 +568,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
         Route::namespace('Contact')->group(function() {
 
             // Index
-            Route::get('contact', ContactComponent::class);
+            Route::get('contact', MainLivewire\Help\Contact\ContactComponent::class);
 
         });
 
@@ -576,10 +578,10 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Categories')->prefix('categories')->group(function() {
 
         // Parent category
-        Route::get('{parent}', CategoryComponent::class);
+        Route::get('{parent}', MainLivewire\Categories\CategoryComponent::class);
 
         // Subcategory
-        Route::get('{parent}/{subcategory}', SubcategoryComponent::class);
+        Route::get('{parent}/{subcategory}', MainLivewire\Categories\SubcategoryComponent::class);
 
     });
 
@@ -587,13 +589,13 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Profile')->prefix('profile')->group(function() {
 
         // Username
-        Route::get('{username}', ProfileComponent::class);
+        Route::get('{username}', MainLivewire\Profile\ProfileComponent::class);
 
         // Portfolio list
-        Route::get('{username}/portfolio', PortfolioComponent::class);
+        Route::get('{username}/portfolio', MainLivewire\Profile\PortfolioComponent::class);
 
         // Get project
-        Route::get('{username}/portfolio/{slug}', ProjectComponent::class);
+        Route::get('{username}/portfolio/{slug}', MainLivewire\Profile\ProjectComponent::class);
 
     });
 
@@ -601,7 +603,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Hire')->prefix('hire')->group(function() {
 
         // skill
-        Route::get('{keyword}', HireComponent::class);
+        Route::get('{keyword}', MainLivewire\Hire\HireComponent::class);
 
     });
 
@@ -609,13 +611,13 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Messages')->prefix('messages')->middleware('auth')->group(function() {
 
         // Index
-        Route::get('/', MessagesComponent::class);
+        Route::get('/', MainLivewire\Messages\MessagesComponent::class);
 
         // New
-        Route::get('new/{username}', NewComponent::class);
+        Route::get('new/{username}', MainLivewire\Messages\NewComponent::class);
 
         // Conversation
-        Route::get('{conversationId}', ConversationComponent::class);
+        Route::get('{conversationId}', MainLivewire\Messages\ConversationComponent::class);
 
     });
 
@@ -623,7 +625,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Search')->prefix('search')->group(function() {
 
         // Keyword
-        Route::get('/', SearchComponent::class);
+        Route::get('/', MainLivewire\Search\SearchComponent::class);
 
     });
 
@@ -631,7 +633,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Page')->prefix('page')->group(function() {
 
         // Index
-        Route::get('{slug}', PageComponent::class);
+        Route::get('{slug}', MainLivewire\Page\PageComponent::class);
 
     });
 
@@ -639,7 +641,7 @@ Route::namespace('App\Http\Livewire\Main')->group(function() {
     Route::namespace('Reviews')->prefix('reviews')->group(function() {
 
         // Index
-        Route::get('{id}', ReviewsComponent::class);
+        Route::get('{id}', MainLivewire\Reviews\ReviewsComponent::class);
 
     });
 

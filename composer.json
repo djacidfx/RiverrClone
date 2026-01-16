@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.3",
         "abraham/twitteroauth": "^5.0",
         "akaunting/laravel-money": "^4.0",
         "akcybex/laravel-jazzcash": "^1.0",
